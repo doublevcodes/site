@@ -1,6 +1,7 @@
 {
 	"name": "site",
 	"version": "0.0.1",
+	"license": "MIT",
 	"scripts": {
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit build",
@@ -14,25 +15,30 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
+		"@tailwindcss/typography": "next",
+		"@types/three": "^0.134.0",
 		"@typescript-eslint/eslint-plugin": "^4.31.1",
 		"@typescript-eslint/parser": "^4.31.1",
+		"autoprefixer": "^10.3.7",
+		"classnames": "^2.3.1",
+		"cssnano": "^5.0.8",
 		"eslint": "^7.32.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-svelte3": "^3.2.1",
+		"gsap": "^3.8.0",
+		"mdsvex": "^0.9.8",
+		"postcss": "^8.3.9",
+		"postcss-load-config": "^3.1.0",
 		"prettier": "^2.4.1",
 		"prettier-plugin-svelte": "^2.4.0",
 		"svelte": "^3.44.0",
 		"svelte-check": "^2.2.6",
 		"svelte-preprocess": "^4.9.8",
-		"tslib": "^2.3.1",
-		"typescript": "^4.4.3",
-		"postcss": "^8.3.9",
-		"postcss-load-config": "^3.1.0",
-		"autoprefixer": "^10.3.7",
-		"cssnano": "^5.0.8",
+		"svelthree": "^0.119.0-5",
 		"tailwindcss": "next",
-		"@tailwindcss/typography": "next",
-		"mdsvex": "^0.9.8"
+		"three": "^0.135.0",
+		"tslib": "^2.3.1",
+		"typescript": "^4.4.3"
 	},
 	"type": "module"
 }
