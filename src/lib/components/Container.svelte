@@ -18,7 +18,7 @@
     }
 </script>
 
-<svelte:head>
+<head>
     <title>{meta.title}</title>
     <meta name="robots" content="follow, index" />
     <meta name="description" content={meta.description} />
@@ -37,8 +37,8 @@
     {#if meta.date !== "1/1/1970"}
         <meta property="article:published_time" content={meta.date} />
     {/if}
-</svelte:head>
-<div class="bg-gray-50 dark:bg-gray-900">
+</head>
+<div class="bg-gray-50 dark:bg-gray-900 selection:bg-[#D8B4FE] selection:text-lg">
     <nav class="flex items-center justify-between w-full relative max-w-2xl border-gray-200 dark:border-gray-700 mx-auto pt-8 pb-8 sm:pb-16  text-gray-900 bg-gray-50  dark:bg-gray-900 bg-opacity-60 dark:text-gray-100">
         <div class="ml-[-0.60rem]">
             <NavItem href="/" text="Home" />
