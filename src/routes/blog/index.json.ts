@@ -1,7 +1,7 @@
 import { slugFromPath } from '$lib/util';
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
-export async function get({ query }) {
+export async function get({ query }): Promise<{body: any}|{status: number}> {
 
 	const modules = import.meta.glob('./*.{md,svx,svelte.md}');
 	const postPromises = [];

@@ -1,9 +1,16 @@
 import { slugFromPath } from "$lib/util";
 
+interface BlogPost {
+    title: string;
+    description: string;
+    date: string;
+    published: boolean;
+}
+
 /**
  * @type {import('@sveltejs/kit').RequestHandler}
  */
-export async function get({ params }: any): Promise<any> {
+export async function get({ params }): Promise<{body: BlogPost}|{status: number}> {
     const modules = import.meta.glob('./*.{md,svx,svelte.md}');
 
     let match;
