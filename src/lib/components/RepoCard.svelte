@@ -10,7 +10,7 @@
 
 <a {href} target="_blank" class={cn(
     "transform hover:scale-[1.01] hover:-translate-y-1 transition-all",
-    "rounded-xl w-full p-1 shadow-lg hover:bg-gradient-to-r",
+    "rounded-xl w-full p-1 shadow-lg bg-gradient-to-r from-[#D8B4FE] to-[#c197ee]",
     gradient
 )}>
     <div class="flex flex-col w-full h-full bg-white dark:bg-gray-900 rounded-lg p-4">

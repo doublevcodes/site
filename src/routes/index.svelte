@@ -47,7 +47,7 @@
         <div class="flex flex-col-reverse sm:flex-row items-start">
           <div class="flex flex-col pr-8">
             <div>
-                <h1 class="font-bold text-3xl md:text-5xl tracking-tight mb-3 text-black dark:text-white hover:mb-6 hover:p-3 hover:bg-black hover:text-white duration-300 w-max">
+                <h1 class="font-bold text-3xl md:text-5xl tracking-tight mb-3 text-black dark:text-white hover:mb-6 hover:p-3 hover:bg-black hover:text-white hover:shadow-xl duration-300 w-max">
                     Vivaan Verma
                 </h1>
             </div>
@@ -78,7 +78,7 @@
         {:else}
             <div class="grid grid-cols-2 grid-rows-2 gap-6 content-end w-full">
                 {#each $pinnedItems.data.viewer.pinnedItems.edges as repo}
-                    <RepoCard title={repo.node.name} description={repo.node.description} href={repo.node.url} language={repo.node.primaryLanguage.name} gradient="from-[#D8B4FE] to-[#818CF8]"/>
+                    <RepoCard title={repo.node.name} description={repo.node.description} href={repo.node.url} language={repo.node.primaryLanguage.name} gradient="hover:from-[#D8B4FE] hover:to-[#818CF8]"/>
                 {/each}
             </div>
         {/if}
