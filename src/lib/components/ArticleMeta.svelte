@@ -2,7 +2,7 @@
     export let slug: string = "";
     export let date;
 
-    const formattedDate = new Date(date).toDateString();
+    const formattedDate = new Date(date).toLocaleDateString();
 </script>
 
 {#if slug}

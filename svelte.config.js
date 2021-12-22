@@ -1,6 +1,7 @@
 import { mdsvex } from 'mdsvex';
 import mdsvexConfig from './mdsvex.config.js';
 import adapter from '@sveltejs/adapter-auto';
+import pagesAdapter from '@sveltejs/adapter-cloudflare';
 import preprocess from 'svelte-preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -17,7 +18,7 @@ const config = {
 	],
 
 	kit: {
-		adapter: adapter(),
+        adapter: process.env.CF_PAGES == 1 ? pagesAdapter() : adapter(),
 
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte'

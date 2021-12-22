@@ -1,3 +1,6 @@
+import remarkGfm from 'remark-gfm';
+import addClasses from 'rehype-add-classes';
+
 const config = {
 	extensions: ['.svelte.md', '.md', '.svx'],
 
@@ -5,8 +8,11 @@ const config = {
 		dashes: 'oldschool'
 	},
 
-	remarkPlugins: [],
-	rehypePlugins: []
+	remarkPlugins: [
+		remarkGfm
+	],
+	rehypePlugins: [
+	]
 };
 
 export default config;
