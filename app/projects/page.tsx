@@ -31,7 +31,7 @@ export default async function ProjectsPage() {
                       href={project.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="border-b-2 border-[var(--color-fg)] no-underline hover:bg-[var(--color-fg)] hover:text-[var(--color-bg)]"
+                      className="hover:bg-[var(--color-fg)] hover:text-[var(--color-bg)]"
                     >
                       LIVE
                     </a>
@@ -41,7 +41,7 @@ export default async function ProjectsPage() {
                       href={project.repo}
                       target="_blank"
                       rel="noreferrer"
-                      className="border-b-2 border-[var(--color-fg)] no-underline hover:bg-[var(--color-fg)] hover:text-[var(--color-bg)]"
+                      className="hover:bg-[var(--color-fg)] hover:text-[var(--color-bg)]"
                     >
                       REPO
                     </a>

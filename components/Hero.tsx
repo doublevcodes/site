@@ -10,7 +10,7 @@ type IOSDeviceOrientationEvent = typeof DeviceOrientationEvent & {
 
 const MAX_TILT = 8;
 const EASE = 0.035;
-const PROJECT_NAMES = ["university prep edtech", "financial compliance agents", "model comparison tooling"] as const;
+const PROJECT_NAMES = ["university prep edtech", "fintech agents", "model comparison tooling"] as const;
 const TYPE_MS = 90;
 const DELETE_MS = 55;
 const HOLD_MS = 1100;
@@ -130,15 +130,15 @@ export function Hero() {
   }, [isDeleting, projectIndex, typedProject]);
 
   return (
-    <section className="flex min-h-0 flex-1 flex-col px-[clamp(1rem,4vw,4rem)]">
+    <section className="flex min-h-0 flex-1 flex-col px-4 sm:px-[clamp(1.25rem,4vw,4rem)]">
       <div
         className="shrink-0 min-h-[var(--site-header-h)]"
         aria-hidden
       />
-      <div className="flex min-h-0 flex-1 flex-col items-center justify-center pb-[clamp(0.6rem,2.5vw,2rem)] [perspective:1750px] [perspective-origin:50%_45%]">
+      <div className="hero-slab-stage box-border flex min-h-0 w-full max-w-full flex-1 flex-col items-center justify-center px-4 pb-[max(0.75rem,env(safe-area-inset-bottom,0px))] pt-1 [perspective:1750px] [perspective-origin:50%_45%] sm:px-4 sm:pb-[clamp(0.6rem,2.5vw,2rem)] sm:pt-0 md:px-5">
         <div
           ref={slabRef}
-          className="hero-slab w-full max-w-[1100px] border-[6px] border-[var(--color-fg)] bg-[var(--color-bg)] px-[clamp(1.5rem,5vw,5rem)] py-[clamp(1.5rem,5vw,5rem)] [transform-style:preserve-3d] [will-change:transform]"
+          className="hero-slab w-full max-w-[1100px] border-4 border-[var(--color-fg)] bg-[var(--color-bg)] px-[clamp(0.85rem,3.2vw,5rem)] py-[clamp(0.85rem,3.2vw,5rem)] [transform-style:preserve-3d] [will-change:transform] md:border-[6px] md:px-[clamp(1.5rem,5vw,5rem)] md:py-[clamp(1.5rem,5vw,5rem)]"
           style={
             {
               "--tilt-x": "0",
@@ -149,19 +149,6 @@ export function Hero() {
         <div className="hero-slab-depth" aria-hidden="true" />
         <div className="hero-slab-light" aria-hidden="true" />
         <div className="hero-slab-content">
-          <div className="hero-slab-text">
-            <h1 className="hero-slab-title intro-hero-title font-display m-0 text-[clamp(5rem,20vw,18rem)] leading-[0.83] tracking-[0.01em] uppercase">
-              VIVAAN
-            </h1>
-            <p className="hero-slab-subtitle intro-hero-subtitle font-brutal-mono mt-[clamp(1rem,2vw,1.5rem)] mb-0 text-[clamp(0.9rem,1.4vw,1.25rem)] tracking-[0.06em] uppercase">
-              17 • London • Building{" "}
-              <span className="hero-project-name">{typedProject}</span>
-              <span className="hero-cursor" aria-hidden="true">
-                _
-              </span>
-            </p>
-          </div>
-
           <div className="hero-photo-wrap intro-hero-subtitle" aria-hidden="true">
             <Image
               src="/images/vivaan-portrait.png"
@@ -171,6 +158,23 @@ export function Hero() {
               className="hero-photo"
               priority
             />
+          </div>
+          <div className="hero-slab-text">
+            <h1 className="hero-slab-title intro-hero-title font-display m-0 text-[clamp(1.9rem,calc(0.88rem+7vw),18rem)] leading-[0.83] tracking-[0.01em] uppercase md:text-[clamp(3.25rem,calc(2rem+9vw),18rem)]">
+              VIVAAN
+            </h1>
+            <p className="hero-slab-subtitle intro-hero-subtitle text-balance font-brutal-mono mt-[clamp(1rem,2vw,1.5rem)] mb-0 text-[clamp(0.9rem,1.4vw,1.25rem)] tracking-[0.06em] uppercase">
+              <span className="hero-slab-line hero-slab-line--meta">
+                17 • London<span className="max-md:hidden"> •</span>
+              </span>{" "}
+              <span className="hero-slab-line hero-slab-line--project">
+                Building{" "}
+                <span className="hero-project-name">{typedProject}</span>
+                <span className="hero-cursor" aria-hidden="true">
+                  _
+                </span>
+              </span>
+            </p>
           </div>
         </div>
       </div>

@@ -94,12 +94,12 @@ export function NowBlock() {
         className="intro-socials font-brutal-mono mx-auto w-[min(1100px,100%)] shrink-0 border-y-4 border-[var(--color-fg)] px-4 py-3 uppercase tracking-[0.05em]"
         aria-label="Social links"
       >
-        <div className="flex flex-wrap gap-x-4 gap-y-2 text-[0.86rem] sm:text-[0.92rem]">
+        <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-[0.86rem] sm:text-[0.92rem]">
           {SOCIAL_LINKS.map(({ href, label, keycap, external }) => (
-            <div key={label} className="group flex items-center gap-2">
+            <div key={label} className="group flex items-center gap-1 md:gap-2">
               <Link
                 href={href}
-                className="inline-block border-2 border-transparent border-b-[var(--color-fg)] px-2 py-1 leading-none no-underline"
+                className="coarse-tap-link inline-block border-2 border-transparent px-2 py-1 leading-none"
                 target={external ? "_blank" : undefined}
                 rel={external ? "noreferrer" : undefined}
               >
@@ -107,7 +107,7 @@ export function NowBlock() {
               </Link>
               <button
                 type="button"
-                className="keycap keycap-hotkey cursor-pointer"
+                className="keycap keycap-hotkey max-md:!hidden cursor-pointer"
                 aria-label={`Open ${label}`}
                 onClick={() => setPendingLinkLabel(label)}
               >
@@ -135,7 +135,7 @@ export function NowBlock() {
             <div className="flex items-center gap-3 text-sm">
               <button
                 type="button"
-                className="cursor-pointer border-2 border-transparent border-b-[var(--color-fg)] px-2 py-1 leading-none"
+                className="cursor-pointer border-2 border-transparent px-2 py-1 leading-none hover:underline"
                 onClick={() => setPendingLinkLabel(null)}
               >
                 Cancel

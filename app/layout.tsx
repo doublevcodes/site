@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import { Hotkeys } from "@/components/Hotkeys";
@@ -13,6 +13,12 @@ const bebas = Bebas_Neue({
 export const metadata: Metadata = {
   title: "VIVAAN",
   description: "17. London. Already building.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 const noFlashThemeScript = `

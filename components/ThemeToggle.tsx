@@ -54,18 +54,18 @@ export function ThemeToggle() {
   };
 
   return (
-    <div className="group font-brutal-mono flex shrink-0 items-center gap-2 text-[0.9rem] uppercase tracking-[0.08em]">
+    <div className="group font-brutal-mono flex shrink-0 items-center gap-1 md:gap-2 text-[0.9rem] uppercase tracking-[0.08em]">
       <button
         type="button"
         onClick={toggleTheme}
         aria-label="Cycle color theme: system, light, and dark"
-        className="cursor-pointer border-2 border-transparent border-b-[var(--color-fg)] px-2 py-1 text-[0.78rem] leading-none"
+        className="coarse-tap-link cursor-pointer border-2 border-transparent px-2 py-1 text-[0.78rem] leading-none hover:underline"
       >
         {isReady ? `MODE: ${preference}` : "MODE"}
       </button>
       <button
         type="button"
-        className="keycap keycap-hotkey cursor-pointer"
+        className="keycap keycap-hotkey max-md:!hidden cursor-pointer"
         onClick={toggleTheme}
         aria-label="Cycle color theme: system, light, and dark"
       >
