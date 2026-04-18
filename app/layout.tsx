@@ -3,6 +3,7 @@ import { Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import { Hotkeys } from "@/components/Hotkeys";
 import { SiteHeader } from "@/components/SiteHeader";
+import { Analytics } from "@vercel/analytics/next";
 
 const bebas = Bebas_Neue({
   variable: "--font-display",
@@ -54,6 +55,7 @@ export default function RootLayout({
         <Hotkeys />
         <SiteHeader />
         {children}
+        <Analytics />
       </body>
     </html>
   );
