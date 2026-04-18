@@ -1,10 +1,13 @@
+import { BlogConstructionTape } from "@/components/BlogConstructionTape";
 import { getAllProjects } from "@/lib/projects";
 
 export default async function ProjectsPage() {
   const projects = await getAllProjects();
 
   return (
-    <main className="min-h-screen px-[clamp(1rem,4vw,4rem)] pt-[clamp(5rem,9vw,7rem)] pb-[clamp(2rem,5vw,4rem)]">
+    <>
+      <BlogConstructionTape />
+      <main className="min-h-screen px-[clamp(1rem,4vw,4rem)] pt-[clamp(5rem,9vw,7rem)] pb-[clamp(2rem,5vw,4rem)]">
       <section className="mx-auto w-full max-w-[960px] border-4 border-[var(--color-fg)] px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(1.25rem,3vw,2.5rem)] shadow-[12px_12px_0_var(--color-fg)]">
         <h1 className="font-display mb-4 mt-0 text-[clamp(3rem,10vw,7rem)] leading-[0.9] uppercase">
           Projects
@@ -50,5 +53,6 @@ export default async function ProjectsPage() {
         )}
       </section>
     </main>
+    </>
   );
 }

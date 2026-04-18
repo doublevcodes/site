@@ -2,8 +2,11 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-
-type Theme = "dark" | "light";
+import {
+  applyThemePreference,
+  cycleThemePreference,
+  readThemePreference,
+} from "@/lib/theme";
 
 const KEY_TO_ROUTE: Record<string, string> = {
   "1": "/",
@@ -12,13 +15,6 @@ const KEY_TO_ROUTE: Record<string, string> = {
   "3": "/blog",
   "4": "/projects",
 };
-
-const THEME_STORAGE_KEY = "theme-preference";
-
-function getThemeFromDom(): Theme {
-  if (typeof document === "undefined") return "dark";
-  return document.documentElement.dataset.theme === "light" ? "light" : "dark";
-}
 
 export function Hotkeys() {
   const router = useRouter();
@@ -41,19 +37,8 @@ export function Hotkeys() {
       const key = event.key.toLowerCase();
       if (key === "t") {
         event.preventDefault();
-        const currentTheme = getThemeFromDom();
-        const nextTheme: Theme = currentTheme === "dark" ? "light" : "dark";
-        document.documentElement.dataset.theme = nextTheme;
-        try {
-          window.localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
-        } catch {
-          // Ignore write failures (private mode, blocked storage, etc).
-        }
-        window.dispatchEvent(
-          new CustomEvent("themechange", {
-            detail: { theme: nextTheme },
-          }),
-        );
+        const next = cycleThemePreference(readThemePreference());
+        applyThemePreference(next);
         return;
       }
 

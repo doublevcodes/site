@@ -1,8 +1,7 @@
 "use client";
 
 import type { CSSProperties } from "react";
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 type IOSDeviceOrientationEvent = typeof DeviceOrientationEvent & {
   requestPermission?: () => Promise<"granted" | "denied">;
@@ -10,24 +9,25 @@ type IOSDeviceOrientationEvent = typeof DeviceOrientationEvent & {
 
 const MAX_TILT = 8;
 const EASE = 0.035;
-const PROJECT_NAMES = ["university prep edtech", "financial compliance agents", "model comparison tooling"] as const;
-const TYPE_MS = 90;
-const DELETE_MS = 55;
-const HOLD_MS = 1100;
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }
 
-export function Hero() {
+type AboutTiltSlabProps = {
+  children: React.ReactNode;
+  className?: string;
+};
+
+export function AboutTiltSlab({ children, className = "" }: AboutTiltSlabProps) {
   const slabRef = useRef<HTMLDivElement | null>(null);
-  const [projectIndex, setProjectIndex] = useState(0);
-  const [typedProject, setTypedProject] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     const slab = slabRef.current;
     if (!slab) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reduceMotion.matches) return;
 
     const target = { x: 0, y: 0 };
     const current = { x: 0, y: 0 };
@@ -79,7 +79,7 @@ export function Hero() {
             const permission = await DeviceOrientation.requestPermission?.();
             if (permission === "granted") enableOrientation();
           } catch {
-            // If permission fails or is blocked, hero remains static.
+            // slab stays at rest
           }
         };
 
@@ -103,78 +103,24 @@ export function Hero() {
     };
   }, []);
 
-  useEffect(() => {
-    const currentWord = PROJECT_NAMES[projectIndex];
-    let timeoutId: ReturnType<typeof setTimeout>;
-
-    if (!isDeleting && typedProject === currentWord) {
-      timeoutId = setTimeout(() => setIsDeleting(true), HOLD_MS);
-      return () => clearTimeout(timeoutId);
-    }
-
-    if (isDeleting && typedProject === "") {
-      setIsDeleting(false);
-      setProjectIndex((current) => (current + 1) % PROJECT_NAMES.length);
-      return;
-    }
-
-    timeoutId = setTimeout(() => {
-      if (isDeleting) {
-        setTypedProject((current) => current.slice(0, -1));
-      } else {
-        setTypedProject(currentWord.slice(0, typedProject.length + 1));
-      }
-    }, isDeleting ? DELETE_MS : TYPE_MS);
-
-    return () => clearTimeout(timeoutId);
-  }, [isDeleting, projectIndex, typedProject]);
-
   return (
-    <section className="flex min-h-0 flex-1 flex-col px-[clamp(1rem,4vw,4rem)]">
+    <div
+      className={`mx-auto w-full max-w-[1100px] [perspective:1750px] [perspective-origin:50%_45%] ${className}`}
+    >
       <div
-        className="shrink-0 min-h-[var(--site-header-h)]"
-        aria-hidden
-      />
-      <div className="flex min-h-0 flex-1 flex-col items-center justify-center pb-[clamp(0.6rem,2.5vw,2rem)] [perspective:1750px] [perspective-origin:50%_45%]">
-        <div
-          ref={slabRef}
-          className="hero-slab w-full max-w-[1100px] border-[6px] border-[var(--color-fg)] bg-[var(--color-bg)] px-[clamp(1.5rem,5vw,5rem)] py-[clamp(1.5rem,5vw,5rem)] [transform-style:preserve-3d] [will-change:transform]"
-          style={
-            {
-              "--tilt-x": "0",
-              "--tilt-y": "0",
-            } as CSSProperties
-          }
-        >
+        ref={slabRef}
+        className="hero-slab border-[6px] border-[var(--color-fg)] bg-[var(--color-bg)] px-[clamp(1.25rem,4vw,2.75rem)] py-[clamp(1.25rem,4vw,2.75rem)] [transform-style:preserve-3d] [will-change:transform]"
+        style={
+          {
+            "--tilt-x": "0",
+            "--tilt-y": "0",
+          } as CSSProperties
+        }
+      >
         <div className="hero-slab-depth" aria-hidden="true" />
         <div className="hero-slab-light" aria-hidden="true" />
-        <div className="hero-slab-content">
-          <div className="hero-slab-text">
-            <h1 className="hero-slab-title intro-hero-title font-display m-0 text-[clamp(5rem,20vw,18rem)] leading-[0.83] tracking-[0.01em] uppercase">
-              VIVAAN
-            </h1>
-            <p className="hero-slab-subtitle intro-hero-subtitle font-brutal-mono mt-[clamp(1rem,2vw,1.5rem)] mb-0 text-[clamp(0.9rem,1.4vw,1.25rem)] tracking-[0.06em] uppercase">
-              17 • London • Building{" "}
-              <span className="hero-project-name">{typedProject}</span>
-              <span className="hero-cursor" aria-hidden="true">
-                _
-              </span>
-            </p>
-          </div>
-
-          <div className="hero-photo-wrap intro-hero-subtitle" aria-hidden="true">
-            <Image
-              src="/images/vivaan-portrait.png"
-              alt=""
-              width={320}
-              height={320}
-              className="hero-photo"
-              priority
-            />
-          </div>
-        </div>
+        <div className="relative z-[2]">{children}</div>
       </div>
-      </div>
-    </section>
+    </div>
   );
 }

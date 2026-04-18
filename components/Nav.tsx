@@ -15,10 +15,10 @@ export function Nav() {
 
   return (
     <nav
-      className="intro-nav font-brutal-mono fixed top-[clamp(1rem,3vw,2rem)] left-[clamp(1rem,3vw,2rem)] z-50 flex flex-col gap-2 text-[0.9rem] uppercase tracking-[0.08em]"
+      className="font-brutal-mono flex min-w-0 flex-1 items-center overflow-x-auto text-[0.9rem] uppercase tracking-[0.08em] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       aria-label="Main"
     >
-      <div className="flex gap-[1rem]">
+      <div className="flex min-w-max gap-[1rem] pr-1">
         {NAV_ITEMS.map(({ href, label, keycap }) => {
           const isActive =
             href === "/"

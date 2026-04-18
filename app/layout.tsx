@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Bebas_Neue } from "next/font/google";
 import "./globals.css";
-import { Nav } from "@/components/Nav";
 import { Hotkeys } from "@/components/Hotkeys";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { SiteHeader } from "@/components/SiteHeader";
 
 const bebas = Bebas_Neue({
   variable: "--font-display",
@@ -22,13 +21,21 @@ const noFlashThemeScript = `
   const root = document.documentElement;
   try {
     const saved = localStorage.getItem(storageKey);
-    const theme =
-      saved === "light" || saved === "dark"
+    const pref =
+      saved === "light" || saved === "dark" || saved === "system"
         ? saved
-        : (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+        : "system";
+    const theme =
+      pref === "light"
+        ? "light"
+        : pref === "dark"
+          ? "dark"
+          : (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
     root.dataset.theme = theme;
   } catch {
-    root.dataset.theme = "dark";
+    root.dataset.theme = window.matchMedia("(prefers-color-scheme: light)").matches
+      ? "light"
+      : "dark";
   }
 })();
 `;
@@ -45,8 +52,7 @@ export default function RootLayout({
       </head>
       <body className="font-brutal-mono min-h-screen bg-[var(--color-bg)] text-[var(--color-fg)]">
         <Hotkeys />
-        <Nav />
-        <ThemeToggle />
+        <SiteHeader />
         {children}
       </body>
     </html>

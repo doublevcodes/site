@@ -7,6 +7,8 @@
 :root {
   --color-bg: #171717;
   --color-fg: #f5f5f5;
+  /* Total block height of fixed SiteHeader (border included via box-border). */
+  --site-header-h: clamp(3.55rem, 3.05rem + 1.6vw, 4.35rem);
 }
 
 :root[data-theme="light"] {
@@ -346,6 +348,110 @@ body {
 
   .hero-cursor {
     animation: none;
+  }
+}
+
+/* About slabs: hard snap + stepped stagger on scroll into view */
+.brutal-scroll-reveal-wrap:not(.brutal-scroll-reveal-wrap--shown) .brutal-reveal-block-title,
+.brutal-scroll-reveal-wrap:not(.brutal-scroll-reveal-wrap--shown) .brutal-stagger-item {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  pointer-events: none;
+}
+
+.brutal-scroll-reveal-wrap--shown .brutal-reveal-block-title {
+  animation: brutalAboutTitle 0.42s cubic-bezier(0.12, 1, 0.2, 1) both;
+}
+
+.brutal-scroll-reveal-wrap--shown .brutal-stagger-item {
+  animation: brutalAboutBlock 0.38s steps(2, end) both;
+  animation-delay: calc(var(--stagger-i, 0) * 52ms);
+}
+
+@keyframes brutalAboutTitle {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes brutalAboutBlock {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* About hero: terminal-style scroll cue */
+.about-scroll-hint {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  margin-top: auto;
+  padding: 0.4rem 0.75rem 0.45rem;
+  border: 2px solid color-mix(in srgb, var(--color-fg) 52%, transparent);
+  border-bottom-width: 3px;
+  background: color-mix(in srgb, var(--color-bg) 88%, var(--color-fg) 12%);
+  color: color-mix(in srgb, var(--color-fg) 78%, transparent);
+  font-family: "Courier New", Courier, monospace;
+  font-size: clamp(0.58rem, 1.1vw, 0.68rem);
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+  box-shadow: 3px 3px 0 color-mix(in srgb, var(--color-fg) 35%, transparent);
+}
+
+.about-scroll-hint-label {
+  padding-right: 0.15rem;
+}
+
+.about-scroll-hint-chev {
+  display: inline-block;
+  font-size: 0.72em;
+  line-height: 1;
+  transform: translateY(0.06em);
+  opacity: 0.82;
+  animation: aboutScrollHintPulse 1.6s steps(1, end) infinite;
+}
+
+@keyframes aboutScrollHintPulse {
+  0%,
+  42% {
+    opacity: 0.88;
+  }
+  43%,
+  52% {
+    opacity: 0.22;
+  }
+  53%,
+  100% {
+    opacity: 0.88;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brutal-scroll-reveal-wrap .brutal-reveal-block-title,
+  .brutal-scroll-reveal-wrap .brutal-stagger-item {
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    animation: none !important;
+    animation-delay: 0ms !important;
+  }
+
+  .about-scroll-hint-chev {
+    animation: none;
+    opacity: 0.78;
   }
 }
 
