@@ -1,0 +1,17 @@
+[
+  {
+    "slug": "agora",
+    "title": "Agora",
+    "description": "adversarial two-agent payment authorisation tool",
+    "type": "hackathon",
+    "repo": "https://github.com/doublevcodes/agora"
+  },
+  {
+    "slug": "gamma-prep",
+    "title": "Gamma Prep",
+    "description": "ESAT & TMUA Preparation Website",
+    "type": "startup",
+    "url": "https://gamma-prep.com/",
+    "ogImage": "/og/projects/gamma-prep.png"
+  }
+]

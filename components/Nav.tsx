@@ -14,8 +14,7 @@ import { createPortal } from "react-dom";
 const NAV_ITEMS = [
   { href: "/", label: "HOME", keycap: "1" },
   { href: "/about", label: "ABOUT", keycap: "2" },
-  { href: "/blog", label: "BLOG", keycap: "3" },
-  { href: "/projects", label: "PROJECTS", keycap: "4" },
+  { href: "/projects", label: "PROJECTS", keycap: "3" },
 ];
 
 const SHEET_TRANSITION_MS = 220;
@@ -31,7 +30,9 @@ export function Nav() {
   const [sheetShow, setSheetShow] = useState(false);
   const [sheetEnter, setSheetEnter] = useState(false);
   const [portalReady, setPortalReady] = useState(false);
+  const [pressedKeycap, setPressedKeycap] = useState<string | null>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pressedKeycapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
   const sheetWasOpenRef = useRef(false);
@@ -124,6 +125,32 @@ export function Nav() {
 
   useEffect(() => () => clearCloseTimer(), [clearCloseTimer]);
 
+  useEffect(() => {
+    const onHotkeyPressed = (event: Event) => {
+      const customEvent = event as CustomEvent<{ keycap?: string }>;
+      const nextKeycap = customEvent.detail?.keycap;
+      if (!nextKeycap) return;
+
+      setPressedKeycap(nextKeycap);
+      if (pressedKeycapTimerRef.current) {
+        clearTimeout(pressedKeycapTimerRef.current);
+      }
+      pressedKeycapTimerRef.current = setTimeout(() => {
+        setPressedKeycap(null);
+        pressedKeycapTimerRef.current = null;
+      }, 170);
+    };
+
+    window.addEventListener("nav-hotkey-pressed", onHotkeyPressed);
+    return () => {
+      window.removeEventListener("nav-hotkey-pressed", onHotkeyPressed);
+      if (pressedKeycapTimerRef.current) {
+        clearTimeout(pressedKeycapTimerRef.current);
+        pressedKeycapTimerRef.current = null;
+      }
+    };
+  }, []);
+
   const portal =
     portalReady &&
     sheetShow &&
@@ -149,6 +176,7 @@ export function Nav() {
             <ul className="flex flex-col gap-0">
               {NAV_ITEMS.map(({ href, label, keycap }, index) => {
                 const isActive = isActivePath(href, pathname);
+                const isPressed = pressedKeycap === keycap;
                 return (
                   <li
                     key={href}
@@ -159,6 +187,7 @@ export function Nav() {
                         ref={index === 0 ? firstLinkRef : undefined}
                         href={href}
                         onClick={closeSheet}
+                        aria-current={isActive ? "page" : undefined}
                         className={
                           isActive
                             ? "coarse-tap-link inline-flex border-2 border-[var(--color-fg)] bg-[var(--color-fg)] px-3 py-2 leading-none text-[var(--color-bg)]"
@@ -167,18 +196,16 @@ export function Nav() {
                       >
                         {label}
                       </Link>
-                      <Link
-                        href={href}
-                        onClick={closeSheet}
+                      <span
                         className={
                           isActive
-                            ? "keycap keycap-hotkey keycap-active shrink-0"
-                            : "keycap keycap-hotkey shrink-0"
+                            ? `keycap keycap-nav-hint keycap-active shrink-0${isPressed ? " keycap-pressed" : ""}`
+                            : `keycap keycap-nav-hint shrink-0${isPressed ? " keycap-pressed" : ""}`
                         }
-                        aria-label={`Go to ${label}`}
+                        aria-hidden="true"
                       >
                         {keycap}
-                      </Link>
+                      </span>
                     </div>
                   </li>
                 );
@@ -196,13 +223,15 @@ export function Nav() {
         className="font-brutal-mono hidden min-w-0 flex-1 items-center overflow-x-auto text-[0.9rem] uppercase tracking-[0.08em] [-ms-overflow-style:none] [scrollbar-width:none] md:flex [&::-webkit-scrollbar]:hidden"
         aria-label="Main"
       >
-        <div className="flex min-w-max gap-[1rem] pr-1">
+        <div className="flex min-w-max gap-[1.75rem] pr-1">
           {NAV_ITEMS.map(({ href, label, keycap }) => {
             const isActive = isActivePath(href, pathname);
+            const isPressed = pressedKeycap === keycap;
             return (
               <div key={href} className="group flex items-center gap-1 md:gap-2">
                 <Link
                   href={href}
+                  aria-current={isActive ? "page" : undefined}
                   className={
                     isActive
                       ? "coarse-tap-link inline-block border-2 border-[var(--color-fg)] bg-[var(--color-fg)] px-2 py-1 leading-none text-[var(--color-bg)]"
@@ -211,17 +240,16 @@ export function Nav() {
                 >
                   {label}
                 </Link>
-                <Link
-                  href={href}
+                <span
                   className={
                     isActive
-                      ? "keycap keycap-hotkey keycap-active max-md:!hidden"
-                      : "keycap keycap-hotkey max-md:!hidden"
+                      ? `keycap keycap-nav-hint keycap-active max-md:!hidden${isPressed ? " keycap-pressed" : ""}`
+                      : `keycap keycap-nav-hint max-md:!hidden${isPressed ? " keycap-pressed" : ""}`
                   }
-                  aria-label={`Go to ${label}`}
+                  aria-hidden="true"
                 >
                   {keycap}
-                </Link>
+                </span>
               </div>
             );
           })}

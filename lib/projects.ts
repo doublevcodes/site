@@ -1,14 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
 
-export type ProjectStatus = "shipped" | "building" | "archived";
-
 export type Project = {
   slug: string;
   title: string;
-  year: number;
-  stack: string[];
-  status: ProjectStatus;
+  description: string;
+  type: "hackathon" | "startup" | "side-project" | "open-source" | "research";
+  ogImage?: string;
   url?: string;
   repo?: string;
 };
@@ -23,12 +21,12 @@ function normalizeProject(data: unknown): Project | null {
   if (
     typeof project.slug !== "string" ||
     typeof project.title !== "string" ||
-    typeof project.year !== "number" ||
-    !Array.isArray(project.stack) ||
-    !project.stack.every((item) => typeof item === "string") ||
-    (project.status !== "shipped" &&
-      project.status !== "building" &&
-      project.status !== "archived")
+    typeof project.description !== "string" ||
+    (project.type !== "hackathon" &&
+      project.type !== "startup" &&
+      project.type !== "side-project" &&
+      project.type !== "open-source" &&
+      project.type !== "research")
   ) {
     return null;
   }
@@ -36,9 +34,9 @@ function normalizeProject(data: unknown): Project | null {
   return {
     slug: project.slug,
     title: project.title,
-    year: project.year,
-    stack: project.stack,
-    status: project.status,
+    description: project.description,
+    type: project.type,
+    ogImage: typeof project.ogImage === "string" ? project.ogImage : undefined,
     url: typeof project.url === "string" ? project.url : undefined,
     repo: typeof project.repo === "string" ? project.repo : undefined,
   };

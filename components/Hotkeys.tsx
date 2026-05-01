@@ -12,9 +12,10 @@ const KEY_TO_ROUTE: Record<string, string> = {
   "1": "/",
   h: "/",
   "2": "/about",
-  "3": "/blog",
-  "4": "/projects",
+  "3": "/projects",
 };
+
+const NAV_KEYCAP_KEYS = new Set(["1", "2", "3"]);
 
 export function Hotkeys() {
   const router = useRouter();
@@ -44,6 +45,14 @@ export function Hotkeys() {
 
       const route = KEY_TO_ROUTE[key];
       if (!route) return;
+
+      if (NAV_KEYCAP_KEYS.has(key)) {
+        window.dispatchEvent(
+          new CustomEvent("nav-hotkey-pressed", {
+            detail: { keycap: key },
+          }),
+        );
+      }
 
       event.preventDefault();
       router.push(route);
