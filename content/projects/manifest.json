@@ -4,6 +4,7 @@
     "title": "Agora",
     "description": "adversarial two-agent payment authorisation tool",
     "type": "hackathon",
+    "placement": 3,
     "repo": "https://github.com/doublevcodes/agora"
   },
   {
@@ -13,5 +14,13 @@
     "type": "startup",
     "url": "https://gamma-prep.com/",
     "ogImage": "/og/projects/gamma-prep.png"
+  },
+  {
+    "slug": "plato",
+    "title": "Plato",
+    "description": "agentic concierge for dinner reservations",
+    "type": "hackathon",
+    "placement": 1,
+    "repo": "https://github.com/doublevcodes/plato"
   }
 ]

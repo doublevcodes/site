@@ -6,6 +6,7 @@ export type Project = {
   title: string;
   description: string;
   type: "hackathon" | "startup" | "side-project" | "open-source" | "research";
+  placement?: number;
   ogImage?: string;
   url?: string;
   repo?: string;
@@ -36,6 +37,10 @@ function normalizeProject(data: unknown): Project | null {
     title: project.title,
     description: project.description,
     type: project.type,
+    placement:
+      typeof project.placement === "number" && project.placement > 0
+        ? project.placement
+        : undefined,
     ogImage: typeof project.ogImage === "string" ? project.ogImage : undefined,
     url: typeof project.url === "string" ? project.url : undefined,
     repo: typeof project.repo === "string" ? project.repo : undefined,

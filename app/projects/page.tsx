@@ -31,8 +31,29 @@ function getProjectTypeClasses(type: "hackathon" | "startup" | "side-project" | 
   return "border-fuchsia-300 bg-fuchsia-600 text-white";
 }
 
+function formatPlacement(placement: number) {
+  const mod100 = placement % 100;
+  const mod10 = placement % 10;
+  const suffix =
+    mod10 === 1 && mod100 !== 11
+      ? "ST"
+      : mod10 === 2 && mod100 !== 12
+        ? "ND"
+        : mod10 === 3 && mod100 !== 13
+          ? "RD"
+          : "TH";
+  return `${placement}${suffix} PLACE`;
+}
+
+function getPlacementClasses(placement: number) {
+  if (placement === 1) return "border-yellow-200 bg-yellow-400 text-black";
+  if (placement === 2) return "border-slate-200 bg-slate-300 text-black";
+  if (placement === 3) return "border-orange-300 bg-orange-600 text-white";
+  return "border-[var(--color-fg)] bg-[var(--color-bg)] text-[var(--color-fg)]";
+}
+
 export default async function ProjectsPage() {
-  const projects = await getAllProjects();
+  const projects = (await getAllProjects()).toReversed();
 
   return (
     <>
@@ -79,12 +100,19 @@ export default async function ProjectsPage() {
                       </p>
 
                       <div className="mt-auto flex flex-col gap-2 pt-1 sm:flex-row sm:items-end sm:justify-between sm:gap-3 sm:pt-0">
-                        <span className="inline-flex items-center gap-2">
+                        <span className="inline-flex flex-wrap items-center gap-2">
                           <span
                             className={`font-brutal-mono inline-flex items-center border-2 px-2.5 py-1 text-[11px] font-black tracking-[0.04em] uppercase sm:px-2 sm:py-1 sm:text-xs ${typeClasses}`}
                           >
                             {formatProjectType(project.type)}
                           </span>
+                          {project.placement ? (
+                            <span
+                              className={`font-brutal-mono inline-flex items-center border-2 px-2.5 py-1 text-[11px] font-black tracking-[0.04em] uppercase sm:px-2 sm:py-1 sm:text-xs ${getPlacementClasses(project.placement)}`}
+                            >
+                              {formatPlacement(project.placement)}
+                            </span>
+                          ) : null}
                         </span>
                         <span className="font-brutal-mono flex flex-wrap items-center gap-2 text-[11px] tracking-[0.04em] uppercase sm:inline-flex sm:justify-end sm:gap-3 sm:text-xs">
                           {project.url ? (
