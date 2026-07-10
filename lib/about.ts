@@ -1,7 +1,7 @@
 /** Copy for the about page. Add more exports here when you add sections. */
 
 export const ABOUT_LEAD =
-  "17. London. A-Level student. Heading to Cambridge to study Engineering. Love building with agents. Launched Gamma Prep — an AI-powered exam prep platform for ESAT and TMUA. Exploring agentic fintech solutions. Work ongoing."
+  "18. London. A-Level student. Heading to Cambridge to study Engineering. Love building with agents. Launched Gamma Prep — an AI-powered exam prep platform for ESAT and TMUA. Exploring agentic fintech solutions. Work ongoing."
 /** One row per school / programme. Replace the placeholder with your real experience. */
 export type EducationEntry = {
   /** School, sixth form, university, bootcamp, etc. */

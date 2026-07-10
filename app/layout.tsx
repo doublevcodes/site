@@ -12,7 +12,7 @@ const bebas = Bebas_Neue({
 
 export const metadata: Metadata = {
   title: "VIVAAN",
-  description: "17. London. Already building.",
+  description: "18. London. Already building.",
 };
 
 export const viewport: Viewport = {

@@ -165,7 +165,7 @@ export function Hero() {
             </h1>
             <p className="hero-slab-subtitle intro-hero-subtitle text-balance font-brutal-mono mt-[clamp(1rem,2vw,1.5rem)] mb-0 text-[clamp(0.9rem,1.4vw,1.25rem)] tracking-[0.06em] uppercase">
               <span className="hero-slab-line hero-slab-line--meta">
-                17 • London<span className="max-md:hidden"> •</span>
+                18 • London<span className="max-md:hidden"> •</span>
               </span>{" "}
               <span className="hero-slab-line hero-slab-line--project">
                 Building{" "}
